@@ -13,10 +13,14 @@
     const webAppUrl = "https://script.google.com/macros/s/AKfycbwx-Hs8Do-Mmt4QzSiITcgSGbIra759pm6DkD9VYTy66benBjZE_2GMSJJtKS2vpK667Q/exec";
 
     function sendToSheet(scannedValue) {
-  fetch(webAppUrl, {
-    method: "POST",
-    body: new URLSearchParams({ value: scannedValue }) // 'value' matches script
-  })
+fetch(webAppUrl, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/x-www-form-urlencoded"
+  },
+  body: new URLSearchParams({ value: scannedValue })
+})
+
   .then(res => res.text())
   .then(data => {
     document.getElementById("result").innerText = "Submitted: " + scannedValue;
@@ -44,5 +48,6 @@
   </script>
 </body>
 </html>
+
 
 
