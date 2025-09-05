@@ -13,18 +13,19 @@
     const webAppUrl = "https://script.google.com/macros/s/AKfycbwx-Hs8Do-Mmt4QzSiITcgSGbIra759pm6DkD9VYTy66benBjZE_2GMSJJtKS2vpK667Q/exec";
 
     function sendToSheet(scannedValue) {
-      fetch(webAppUrl, {
-        method: "POST",
-        body: new URLSearchParams({ value: scannedValue })  // ✅ form data, not JSON
-      })
-      .then(res => res.text())
-      .then(data => {
-        document.getElementById("result").innerText = "Submitted: " + scannedValue;
-      })
-      .catch(err => {
-        document.getElementById("result").innerText = "Error: " + err;
-      });
-    }
+  fetch(webAppUrl, {
+    method: "POST",
+    body: new URLSearchParams({ value: scannedValue }) // 'value' matches script
+  })
+  .then(res => res.text())
+  .then(data => {
+    document.getElementById("result").innerText = "Submitted: " + scannedValue;
+  })
+  .catch(err => {
+    document.getElementById("result").innerText = "Error: " + err.message;
+  });
+}
+
 
     const html5QrCode = new Html5Qrcode("reader");
     const config = { fps: 10, qrbox: 250 };
@@ -43,4 +44,5 @@
   </script>
 </body>
 </html>
+
 
