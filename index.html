@@ -10,15 +10,12 @@
   <div id="result"></div>
 
   <script>
-    const webAppUrl = "https://script.google.com/macros/s/AKfycby-7y6U5ZKsfIZ3VKQTESyeOW4J8MOKwON1pJgjJcWZ3M2LaunQlsxjq1y-MuysL0lSeQ/exec"; // Paste your Web App URL
+    const webAppUrl = "https://script.google.com/macros/s/AKfycby-7y6U5ZKsfIZ3VKQTESyeOW4J8MOKwON1pJgjJcWZ3M2LaunQlsxjq1y-MuysL0lSeQ/exec";
 
     function sendToSheet(scannedValue) {
       fetch(webAppUrl, {
         method: "POST",
-        body: JSON.stringify({ value: scannedValue }),
-        headers: {
-          "Content-Type": "application/json"
-        }
+        body: new URLSearchParams({ value: scannedValue })  // ✅ form data, not JSON
       })
       .then(res => res.text())
       .then(data => {
@@ -33,7 +30,7 @@
     const config = { fps: 10, qrbox: 250 };
 
     html5QrCode.start(
-      { facingMode: "environment" }, 
+      { facingMode: "environment" },
       config,
       qrCodeMessage => {
         html5QrCode.stop(); // Stop scanner after first read
@@ -46,5 +43,3 @@
   </script>
 </body>
 </html>
-
-
