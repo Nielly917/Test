@@ -1,13 +1,58 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>QR to Google Sheet</title>
+  <title>QR Code Scanner</title>
   <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      width: 100%;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    h2 {
+      text-align: center;
+      margin: 10px 0;
+      font-family: Arial, sans-serif;
+    }
+    #reader {
+      flex: 1; /* takes up all remaining space */
+      width: 100% !important;
+    }
+    #result {
+      text-align: center;
+      padding: 10px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
   <h2>Scan QR Code</h2>
-  <div id="reader" style="width:300px;"></div>
+  <div id="reader"></div>
   <div id="result"></div>
+
+  <script>
+    function onScanSuccess(decodedText) {
+      document.getElementById("result").innerText = "Scanned Code: " + decodedText;
+    }
+
+    function onScanFailure(error) {
+      // Suppress errors but you can log if needed
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader", 
+      { fps: 10, qrbox: { width: 250, height: 250 } }, 
+      false
+    );
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+  </script>
+</body>
+</html>
 
   <script>
     const webAppUrl = "https://script.google.com/macros/s/AKfycbyMBEsfU9Aae9Ya7Mt5NeXBqSJluBrJBDYUOkHd46YD1QJYNkVQfgw9kO7-k4S54IWOIQ/exec";
@@ -45,6 +90,7 @@
   </script>
 </body>
 </html>
+
 
 
 
